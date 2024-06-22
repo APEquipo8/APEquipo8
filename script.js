@@ -91,26 +91,34 @@ function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    doc.text('Gestión de Proyectos', 10, 10);
+    const imgData = 'data:image/png;base64,<TU IMAGEN BASE64>'; // Inserta la imagen en base64 aquí
 
+    doc.addImage(imgData, 'PNG', 10, 10, 190, 20); // Ajusta las coordenadas y tamaño según tu imagen
+
+    doc.setFontSize(12);
+    doc.text('Gestión de Proyectos', 10, 40);
+    
     const totalCost = document.getElementById('total-cost').textContent;
-    doc.text(`Total Costos: $${totalCost}`, 10, 20);
+    doc.text(`Total Costos: $${totalCost}`, 10, 50);
 
     const activityTable = document.getElementById('activity-table');
     const rows = activityTable.getElementsByTagName('tr');
-    let startY = 30;
+    const data = [];
 
-    for (let i = 0; i < rows.length; i++) {
+    for (let i = 1; i < rows.length; i++) { // Saltamos la primera fila de encabezado
         const cols = rows[i].getElementsByTagName('td');
-        if (cols.length > 0) {
-            let rowText = '';
-            for (let j = 0; j < cols.length; j++) {
-                rowText += `${cols[j].innerText} `;
-            }
-            doc.text(rowText, 10, startY);
-            startY += 10;
+        const rowData = [];
+        for (let j = 0; j < cols.length; j++) {
+            rowData.push(cols[j].innerText);
         }
+        data.push(rowData);
     }
+
+    doc.autoTable({
+        head: [['Actividad', 'Tiempo (horas)', 'Recurso ($)', 'Responsable', 'Avance (%)', 'Evidencia']],
+        body: data,
+        startY: 60,
+    });
 
     doc.save('gestion_proyectos.pdf');
 }
