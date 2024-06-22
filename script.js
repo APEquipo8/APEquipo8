@@ -86,3 +86,31 @@ function openTab(evt, tabName) {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.tablink').click();
 });
+
+function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text('Gestión de Proyectos', 10, 10);
+
+    const totalCost = document.getElementById('total-cost').textContent;
+    doc.text(`Total Costos: $${totalCost}`, 10, 20);
+
+    const activityTable = document.getElementById('activity-table');
+    const rows = activityTable.getElementsByTagName('tr');
+    let startY = 30;
+
+    for (let i = 0; i < rows.length; i++) {
+        const cols = rows[i].getElementsByTagName('td');
+        if (cols.length > 0) {
+            let rowText = '';
+            for (let j = 0; j < cols.length; j++) {
+                rowText += `${cols[j].innerText} `;
+            }
+            doc.text(rowText, 10, startY);
+            startY += 10;
+        }
+    }
+
+    doc.save('gestion_proyectos.pdf');
+}
