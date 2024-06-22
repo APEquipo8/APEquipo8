@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <title>Gestión de Proyectos</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Darkem Systems, Gestión de Alcance</h1>
+        <h1>Gestión de Proyectos</h1>
         <div class="tabs">
             <button class="tablink" onclick="openTab(event, 'Formulario')">Formulario y Cálculos</button>
             <button class="tablink" onclick="openTab(event, 'Historial')">Historial de Cálculos</button>
@@ -23,11 +23,11 @@
                     <input type="text" id="concepto" required>
                 </div>
                 <div class="form-group">
-                    <label for="tiempo">Tiempo (días)</label>
+                    <label for="tiempo">Tiempo (horas)</label>
                     <input type="number" id="tiempo" required>
                 </div>
                 <div class="form-group">
-                    <label for="recurso">Costo ($)</label>
+                    <label for="recurso">Recurso ($)</label>
                     <input type="number" id="recurso" required>
                 </div>
                 <div class="form-group">
@@ -49,8 +49,8 @@
                 <thead>
                     <tr>
                         <th>Concepto</th>
-                        <th>Tiempo (días)</th>
-                        <th>Costo ($)</th>
+                        <th>Tiempo (horas)</th>
+                        <th>Recurso ($)</th>
                         <th>Responsable</th>
                         <th>Avance (%)</th>
                         <th>Evidencia</th>
@@ -61,6 +61,7 @@
             </table>
             <h2>Total Costos</h2>
             <p id="total-cost">0</p>
+            <button onclick="generatePDF()">Generar PDF</button>
         </div>
 
         <div id="Historial" class="tabcontent">
