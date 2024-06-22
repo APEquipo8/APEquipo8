@@ -92,7 +92,7 @@ function generatePDF() {
     const doc = new jsPDF();
 
     const img = new Image();
-    img.src = 'ruta/a/tu/imagen.png'; // Reemplaza con la ruta a tu imagen PNG
+    img.src = 'img/imagen.png'; // Reemplaza con la ruta a tu imagen PNG
 
     img.onload = function () {
         doc.addImage(img, 'PNG', 10, 10, 190, 30); // Ajusta las coordenadas y tamaño según tu imagen
